@@ -36,11 +36,21 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
         #   and come back to this one afterwards
         elif pattern[pind] == '%':
             if pind == len(pattern) - 1:
-                res = " ".join(source[sind:])
+                res = ' '.join(source[sind:])
                 result.append(res)
-                return [res]
-                # pind += 1 
-                # sind = len(source)
+                return result
+            
+            else:
+                pind += 1
+                sum = ""
+                while source[sind] != pattern[pind]:
+                    sum += source[sind] + " "
+                    sind += 1
+
+                    if sind >= len(source):
+                        return None
+                
+                result.append(sum.strip())
         # 3) if we reached the end of the source but not the pattern
         elif sind == len(source):
             return None
